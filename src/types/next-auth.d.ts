@@ -3,9 +3,9 @@ import { JWT } from "next-auth/jwt";
 
 interface IUser {
 	_id: string;
-	username: string;
+	name: string;
 	email: string;
-	isVerify: boolean;
+	isActive: boolean;
 }
 declare module "next-auth/jwt" {
 	/** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
@@ -27,6 +27,7 @@ declare module "next-auth" {
 		access_token: string;
 		refresh_token: string;
 		access_expire: number;
+		isActive: boolean;
 		error: string;
 	}
 }

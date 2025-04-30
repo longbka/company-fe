@@ -1,16 +1,14 @@
-import MainHomePage from "@/app/components/Slider/MainHomePage";
-import IntroAndContactForm from "@/app/components/IntroAndContactForm";
-import Partners from "@/app/components/Slider/Partners";
-import FeaturedServices from "./components/ProductsAndServices";
-import { auth } from "@/auth";
+import MainHomePage from "@/components/general/Slider/MainHomePage";
+import IntroAndContactForm from "@/components/general/IntroAndContactForm";
+import Partners from "@/components/general/Slider/Partners";
+import FeaturedServices from "@/components/general/ProductsAndServices";
 export default async function Home() {
-	const session = await auth();
-	return (
-		<>
-			<MainHomePage />
-			<IntroAndContactForm />
-			<Partners />
-			<FeaturedServices />
-		</>
-	);
+  return (
+    <>
+      <MainHomePage />
+      <IntroAndContactForm />
+      <Partners />
+      <FeaturedServices />
+    </>
+  );
 }
