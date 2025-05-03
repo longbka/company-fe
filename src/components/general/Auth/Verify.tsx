@@ -1,6 +1,6 @@
 "use client";
 import { useForm } from "react-hook-form";
-import { boolean, z } from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import {
@@ -44,7 +44,7 @@ export default function VerifyCodeForm({ id }: VerifyCodeFormProps) {
 
   const onSubmit = async (values: { id: string; code: string }) => {
     const { id, code } = values;
-    const res = await sendRequest<IBackendRes<any>>({
+    const res = await sendRequest<IBackendRes<boolean>>({
       url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/check-code`,
       method: "POST",
       body: {

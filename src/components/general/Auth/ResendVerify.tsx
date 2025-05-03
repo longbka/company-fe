@@ -33,7 +33,7 @@ export default function ResendEmailModal() {
     setLoading(true);
     const email = verifyModal.userEmail;
     try {
-      const res = await sendRequest<IBackendRes<any>>({
+      const res = await sendRequest<IBackendRes<{ id: string }>>({
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/retry-active`,
         method: "POST",
         body: { email },

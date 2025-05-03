@@ -28,6 +28,7 @@ import { handleSignIn } from "@/lib/auth-action";
 import { useRouter } from "next/navigation";
 import { useVerifyModal } from "@/hooks/use-verify-modal";
 import Link from "next/link";
+import { LoginInfo } from "@/types/common";
 
 const formSchema = z.object({
   username: z.string().email({ message: "Sai định dạng email" }),
@@ -50,7 +51,7 @@ export default function LoginModal() {
     },
   });
 
-  const onSubmit = async (values: any) => {
+  const onSubmit = async (values: LoginInfo) => {
     setLoading(true);
     verifyModal.setUserMail("");
     const { username, password } = values;

@@ -4,12 +4,15 @@ export {};
 declare global {
   interface IRequest {
     url: string;
-    method: string;
-    body?: { [key: string]: any };
-    queryParams?: any;
+    method: "GET" | "POST" | "PUT" | "DELETE" | "PATCH";
+    body?: Record<string, unknown>;
+    queryParams?: Record<string, string | number | boolean | undefined>;
     useCredentials?: boolean;
-    headers?: any;
-    nextOption?: any;
+    headers?: Record<string, string>;
+    nextOption?: {
+      revalidate?: number | false;
+      tags?: string[];
+    };
   }
 
   interface IBackendRes<T> {

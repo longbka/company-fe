@@ -50,6 +50,11 @@ type MessageType = {
   isSuccess: boolean;
 };
 
+type RetryPasswordData = {
+  email: string;
+  id: string;
+};
+
 export default function ForgotPasswordPage() {
   const [step, setStep] = useState<"email" | "reset">("email");
   const [email, setEmail] = useState("");
@@ -90,7 +95,7 @@ export default function ForgotPasswordPage() {
     setLoading(true);
 
     try {
-      const res = await sendRequest<IBackendRes<any>>({
+      const res = await sendRequest<IBackendRes<RetryPasswordData>>({
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/retry-password`,
         method: "POST",
         body: { email: data.email },
@@ -105,7 +110,7 @@ export default function ForgotPasswordPage() {
         await sleep(1000);
         setStep("reset");
       } else {
-        setMessage({ info: "Đã có lỗi xảy ra", isSuccess: false });
+        setMessage({ info: res?.message, isSuccess: false });
       }
     } catch (error) {
       console.error("Lỗi khi gửi yêu cầu:", error);
@@ -123,7 +128,7 @@ export default function ForgotPasswordPage() {
     setLoading(true);
 
     try {
-      const res = await sendRequest<IBackendRes<any>>({
+      const res = await sendRequest<IBackendRes<boolean>>({
         url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/reset-password`,
         method: "POST",
         body: {

@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/form";
 import { useRegisterModal } from "@/hooks/use-register-modal";
 import { sendRequest } from "@/utils/api";
-import { RegisterInfo } from "@/types/auth";
+import { RegisterInfo } from "@/types/common";
 import { useRouter } from "next/navigation";
 
 const registerSchema = z.object({
@@ -53,8 +53,9 @@ export default function RegisterModal() {
   });
 
   const onSubmit = async (values: RegisterInfo) => {
+    setLoading(true);
     const { email, password, name, phone, address } = values;
-    const res = await sendRequest<IBackendRes<any>>({
+    const res = await sendRequest<IBackendRes<{ _id: string }>>({
       url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/register`,
       method: "POST",
       body: {
@@ -71,6 +72,7 @@ export default function RegisterModal() {
     } else {
       setErrMsg(res?.message);
     }
+    setLoading(false);
   };
 
   return (
